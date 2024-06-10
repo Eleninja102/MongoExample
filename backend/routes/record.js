@@ -45,11 +45,11 @@ recordRoutes.route("/record/add").post(async (req, res) => {
 	try {
 		let db_connect = dbo.getDb();
 		let myobj = {
-			name: req.body.name,
-			position: req.body.position,
-			level: req.body.level,
+			name: req.body.name || "Default",
+			position: req.body.position || "none",
+			level: req.body.level || "temp",
 		};
-		result = db_connect.collection("records").insertOne(myobj);
+		const result = await db_connect.collection("records").insertOne(myobj);
 		res.json(result);
 	} catch (err) {
 		throw err;
